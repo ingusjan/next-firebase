@@ -10,6 +10,10 @@ export default function Home() {
       .catch((e) => console.error(e));
   };
 
+  const signOut = async () => {
+    await auth.signOut().catch((e) => console.error(e));
+  };
+
   const callFunction = async () => {
     const helloWorld = functions.httpsCallable("helloWorld");
     helloWorld()
@@ -20,7 +24,13 @@ export default function Home() {
   return (
     <div>
       {JSON.stringify(user)}
-      <button onClick={signIn}>Login with Google</button>
+
+      {user ? (
+        <button onClick={signOut}>Log out</button>
+      ) : (
+        <button onClick={signIn}>Login with Google</button>
+      )}
+
       <button onClick={callFunction}>Call Function</button>
     </div>
   );
